@@ -1,0 +1,303 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Starpick Heroes — Evoca eroi dalle stelle</title>
+<meta name="description" content="Evoca eroi dalle stelle e scala la Guglia di 100 piani. Chi cade non torna. Gioco di ruolo per Android, in arrivo.">
+<meta name="theme-color" content="#0E1330">
+<link rel="icon" href="img/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://starpickheroes.github.io/">
+<meta property="og:title" content="Starpick Heroes">
+<meta property="og:description" content="Ogni eroe nasce da una stella. Alcuni ne diventano una.">
+<meta property="og:image" content="https://starpickheroes.github.io/img/og.jpg">
+<meta property="og:image:width" content="1024">
+<meta property="og:image:height" content="500">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preload" href="fonts/cinzel-latin-600-normal.woff2" as="font" type="font/woff2" crossorigin>
+<script>document.documentElement.classList.add('js')</script>
+<style>
+  /* Fonts self-hosted (SIL OFL 1.1, see fonts/): no third-party requests. */
+  @font-face { font-family: Cinzel; font-weight: 600; font-display: swap; src: url(fonts/cinzel-latin-600-normal.woff2) format("woff2"); }
+  @font-face { font-family: Nunito; font-weight: 400; font-display: swap; src: url(fonts/nunito-latin-400-normal.woff2) format("woff2"); }
+  @font-face { font-family: Nunito; font-weight: 700; font-display: swap; src: url(fonts/nunito-latin-700-normal.woff2) format("woff2"); }
+
+  :root {
+    color-scheme: dark;
+    --night: #0E1330; --deep: #080B20; --indigo: #2A2F6B;
+    --gold: #F5C451; --cyan: #57D9E8; --lantern: #FF9F43; --outline: #1B1830;
+    --text: #E8E6F5; --muted: #A9A6C8;
+    --r3: #4C8DF6; --r4: #A66CFF; --r5: #F5C451;
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0; min-height: 100vh; overflow-x: hidden;
+    background: radial-gradient(120% 70% at 50% 0%, var(--indigo), var(--night) 60%, var(--deep));
+    background-color: var(--night); color: var(--text);
+    font: 400 1.0625rem/1.6 Nunito, system-ui, sans-serif;
+  }
+  img { max-width: 100%; }
+  a { color: var(--cyan); }
+  h1, h2, h3, .cinzel { font-family: Cinzel, Georgia, serif; font-weight: 600; }
+  :focus-visible { outline: 2px solid var(--cyan); outline-offset: 3px; border-radius: 6px; }
+  #sky { position: fixed; inset: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; }
+
+  /* top bar */
+  .top { position: absolute; inset: 0 0 auto; z-index: 5; display: flex; align-items: center; justify-content: space-between;
+         padding: 16px max(16px, env(safe-area-inset-left)); max-width: 1180px; margin: 0 auto; }
+  .brand { display: inline-flex; align-items: center; gap: 10px; color: var(--text); text-decoration: none; font: 600 1rem Cinzel, serif; letter-spacing: .06em; }
+  .brand img { border-radius: 9px; }
+  .icon-btn { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; color: var(--text);
+              border: 1px solid rgb(245 196 81 / .3); background: rgb(42 47 107 / .45); }
+  .icon-btn:hover { color: var(--gold); }
+  svg.i { width: 20px; height: 20px; flex: none; }
+
+  /* hero — layout adapted from the 21st.dev "Coming Soon 02" block by Mohammad Shehadeh (Hirael), MIT License */
+  .hero { position: relative; isolation: isolate; min-height: 100svh; display: flex; flex-direction: column;
+          align-items: center; justify-content: flex-end; text-align: center; overflow: hidden; padding-top: 96px; }
+  .hero-body { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 18px;
+               width: 100%; max-width: 860px; padding: 0 16px; }
+  .pill { display: inline-flex; align-items: center; gap: .6em; padding: .55em 1.1em; border-radius: 999px;
+          border: 1px solid rgb(245 196 81 / .35); background: rgb(42 47 107 / .55); backdrop-filter: blur(6px);
+          color: var(--gold); font: 700 .72rem/1 Nunito, sans-serif; letter-spacing: .16em; text-transform: uppercase; }
+  .pill::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--gold); box-shadow: 0 0 10px var(--gold);
+                  animation: pulse 2.4s ease-in-out infinite; }
+  .logo { margin: 6px 0 0; font-size: clamp(2.5rem, 11vw, 6.4rem); line-height: 1; letter-spacing: .04em; color: #F2F0FA;
+          text-shadow: 0 4px 30px rgb(14 19 48 / .8); }
+  .logo img { height: .82em; width: auto; vertical-align: -.04em; margin: 0 .02em; filter: drop-shadow(0 0 .22em rgb(245 196 81 / .7)); }
+  .logo small { display: block; margin-top: .55em; padding-left: .62em; font-size: .3em; letter-spacing: .62em; color: var(--gold); }
+  .tagline { margin: 6px 0 0; max-width: 32ch; font: 600 clamp(1.15rem, 3.4vw, 1.9rem)/1.35 Cinzel, serif; }
+  .tagline span { display: inline-block; }
+  .tagline .m { color: var(--muted); }
+  .tagline .g { color: var(--gold); }
+  .js .tagline span { opacity: 0; transform: translateY(16px); animation: rise .5s ease-out forwards; animation-delay: calc(.35s + var(--i) * 80ms); }
+  .lead { margin: 0; max-width: 46ch; color: var(--muted); font-size: clamp(1rem, 2.2vw, 1.15rem); }
+  .js .fade { opacity: 0; animation: rise .7s ease-out 1.2s forwards; }
+  .actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 6px; }
+  .btn { display: inline-flex; align-items: center; gap: .55em; min-height: 48px; padding: .8em 1.4em; border-radius: 999px;
+         border: 1px solid rgb(245 196 81 / .4); background: rgb(42 47 107 / .55); color: var(--text);
+         font: 700 1rem Nunito, sans-serif; text-decoration: none; transition: transform .15s, box-shadow .15s, background .15s; }
+  .btn:hover { transform: translateY(-2px); background: rgb(42 47 107 / .85); }
+  .btn.primary { background: var(--gold); border-color: var(--gold); color: var(--outline); box-shadow: 0 0 34px -8px rgb(245 196 81 / .8); }
+  .btn.primary:hover { box-shadow: 0 0 44px -6px rgb(245 196 81 / .95); }
+
+  .horizon { position: relative; width: 100%; height: clamp(250px, 42vw, 440px); margin-top: -24px;
+             -webkit-mask-image: radial-gradient(50% 50%, #000, transparent); mask-image: radial-gradient(50% 50%, #000, transparent); }
+  .horizon::before { content: ""; position: absolute; inset: 0;
+                     background: radial-gradient(circle at 50% 100%, rgb(245 196 81 / .55), rgb(255 159 67 / .12) 45%, transparent 70%); }
+  .horizon::after { content: ""; position: absolute; left: -50%; top: 55%; width: 200%; aspect-ratio: 1 / .7; border-radius: 100%;
+                    border-top: 1px solid rgb(245 196 81 / .65); background: var(--deep);
+                    box-shadow: 0 -18px 60px -10px rgb(245 196 81 / .35), inset 0 30px 60px -30px rgb(245 196 81 / .25); }
+  .horizon canvas { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; }
+  .emblem { position: absolute; z-index: 2; left: 50%; top: 55%; width: clamp(110px, 16vw, 170px); height: auto;
+            transform: translate(-50%, -78%); animation: bob 5s ease-in-out infinite; }
+
+  /* sections */
+  section { padding: 72px 16px; }
+  .wrap { max-width: 1080px; margin: 0 auto; }
+  .eyebrow { margin: 0 0 10px; color: var(--gold); font: 700 .75rem Nunito, sans-serif; letter-spacing: .2em; text-transform: uppercase; }
+  h2 { margin: 0 0 16px; font-size: clamp(1.7rem, 4.6vw, 2.8rem); line-height: 1.15; color: #F2F0FA; }
+  .story { text-align: center; }
+  .story p:not(.eyebrow) { max-width: 62ch; margin: 0 auto 1em; color: var(--muted); font-size: clamp(1.05rem, 2.2vw, 1.2rem); }
+  .story b { color: var(--text); }
+
+  .cards { display: grid; gap: 18px; max-width: 920px; margin: 36px auto 0; text-align: left; }
+  @media (min-width: 640px) { .cards { grid-template-columns: 1fr 1fr; } }
+  .card { padding: 24px; border-radius: 18px; background: rgb(42 47 107 / .42); border: 1px solid rgb(255 255 255 / .07);
+          border-top: 2px solid var(--c); backdrop-filter: blur(4px); }
+  .card h3 { margin: 0 0 8px; font-size: 1.08rem; line-height: 1.3; color: #F2F0FA; }
+  .card h3::before { content: "★ "; color: var(--c); }
+  .card p { margin: 0; color: var(--muted); font-size: 1rem; }
+
+  .shots-head { text-align: center; }
+  .shots { display: flex; gap: 22px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 12px 16px 28px; margin: 24px -16px 0;
+           scrollbar-width: thin; scrollbar-color: var(--indigo) transparent; }
+  .phone { flex: 0 0 clamp(190px, 46vw, 205px); margin: 0; scroll-snap-align: center; text-align: center; }
+  .phone:first-child { margin-left: auto; }
+  .phone:last-child { margin-right: auto; }
+  .phone img { display: block; width: 100%; height: auto; border-radius: 26px; border: 7px solid #05071A;
+               box-shadow: 0 0 0 1px rgb(245 196 81 / .28), 0 24px 50px -22px #000; }
+  .phone figcaption { margin-top: 12px; color: var(--gold); font: 600 .95rem Cinzel, serif; }
+
+  .lumen .wrap { display: grid; gap: 28px; align-items: center; justify-items: center; text-align: center; max-width: 860px; }
+  .lumen-art { position: relative; width: 170px; }
+  .lumen-art::before { content: ""; position: absolute; inset: -30%; z-index: -1; border-radius: 50%;
+                       background: radial-gradient(closest-side, rgb(255 159 67 / .35), transparent); }
+  .lumen-art img { display: block; width: 100%; height: auto; animation: bob 6s ease-in-out infinite; }
+  blockquote { margin: 0 0 14px; font: 600 clamp(1.2rem, 3vw, 1.6rem)/1.4 Cinzel, serif; color: #F2F0FA; }
+  .lumen p { margin: 0; color: var(--muted); }
+  @media (min-width: 720px) { .lumen .wrap { grid-template-columns: 200px 1fr; text-align: left; justify-items: start; } }
+
+  .cta .box { position: relative; overflow: hidden; max-width: 860px; margin: 0 auto; padding: 48px 24px; text-align: center; border-radius: 26px;
+              background: radial-gradient(90% 120% at 50% 120%, rgb(245 196 81 / .22), transparent 60%), rgb(42 47 107 / .5);
+              border: 1px solid rgb(245 196 81 / .25); }
+  .cta p { margin: 0 auto 20px; max-width: 48ch; color: var(--muted); }
+  .cta .pill { margin-bottom: 18px; }
+
+  footer { padding: 32px 16px 48px; text-align: center; color: var(--muted); font-size: .92rem; }
+  footer nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 22px; margin-bottom: 10px; }
+  footer a { color: var(--text); text-decoration: none; }
+  footer a:hover { color: var(--gold); }
+
+  .js .reveal { opacity: 0; transform: translateY(26px); transition: opacity .8s ease-out, transform .8s ease-out; }
+  .js .reveal.in { opacity: 1; transform: none; }
+
+  @keyframes rise { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+  @keyframes bob { 50% { translate: 0 -8px; } }
+  @keyframes pulse { 50% { opacity: .35; } }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+    .js .tagline span, .js .fade, .js .reveal { opacity: 1; transform: none; }
+  }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-ig" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.1" fill="currentColor" stroke="none"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 7 8.5 6 8.5-6"/></symbol>
+</svg>
+<canvas id="sky" aria-hidden="true"></canvas>
+
+<header class="top">
+  <a class="brand" href="./"><img src="img/icon.svg" alt="" width="34" height="34">Starpick Heroes</a>
+  <a class="icon-btn" href="https://www.instagram.com/starpickheroes/" aria-label="Starpick Heroes su Instagram"><svg class="i"><use href="#i-ig"/></svg></a>
+</header>
+
+<main>
+  <section class="hero" aria-labelledby="title">
+    <div class="hero-body">
+      <span class="pill">Presto su Android</span>
+      <h1 class="logo" id="title" aria-label="Starpick Heroes">ST<img src="img/star.svg" alt="" width="100" height="100">RPICK<small>HEROES</small></h1>
+      <p class="tagline">
+        <span class="m" style="--i:0">Ogni</span> <span class="m" style="--i:1">eroe</span> <span class="m" style="--i:2">nasce</span>
+        <span class="m" style="--i:3">da</span> <span class="m" style="--i:4">una</span> <span class="m" style="--i:5">stella.</span>
+        <span class="g" style="--i:6">Alcuni</span> <span class="g" style="--i:7">ne</span> <span class="g" style="--i:8">diventano</span> <span class="g" style="--i:9">una.</span>
+      </p>
+      <p class="lead fade">Evoca eroi dalle stelle e scala la Guglia di 100 piani. Chi cade non torna.</p>
+      <div class="actions fade">
+        <a class="btn primary" href="https://www.instagram.com/starpickheroes/"><svg class="i"><use href="#i-ig"/></svg>Seguici su Instagram</a>
+        <a class="btn" href="#gioco">Scopri il gioco</a>
+      </div>
+    </div>
+    <div class="horizon" aria-hidden="true">
+      <canvas></canvas>
+      <img class="emblem" src="img/emblem.svg" alt="" width="108" height="108">
+    </div>
+  </section>
+
+  <section class="story" id="gioco">
+    <div class="wrap">
+      <div class="reveal">
+        <p class="eyebrow">La storia</p>
+        <h2>Il cielo di Astrea si è spento.</h2>
+        <p>Dal mare è salita la <b>Guglia</b>, una torre di cento piani, e ogni piano custodisce una stella rubata.</p>
+        <p>Sei l'<b>Evocatore</b>. Dal Pozzo delle Stelle chiami eroi da mondi lontani: un fornaio, una cartografa, un cavaliere caduto in disgrazia.
+          Nessuno è uguale a un altro: ognuno ha un nome, un mondo, un carattere, paure, talenti nascosti e gusti suoi.</p>
+      </div>
+      <div class="cards">
+        <article class="card reveal" style="--c:var(--r5)">
+          <h3>Battaglie automatiche, scelte che pesano</h3>
+          <p>Scegli il party e la formazione, poi guarda. Paura, ferite, veleno, risvegli all'ultimo respiro. E chi cade non torna: la morte è per sempre.</p>
+        </article>
+        <article class="card reveal" style="--c:var(--r4)">
+          <h3>Non serve nascere a cinque stelle</h3>
+          <p>Un 1★ allenato bene può superare un 5★. Allenamento, promozioni con le pietre, classi avanzate, abilità che si fondono.</p>
+        </article>
+        <article class="card reveal" style="--c:var(--lantern)">
+          <h3>Il Rifugio</h3>
+          <p>Un vecchio porto ai piedi della Guglia: Mensa, Forgia, Laboratorio alchemico. Gli eroi vivono anche quando sei via: si allenano, litigano, si affezionano.</p>
+        </article>
+        <article class="card reveal" style="--c:var(--cyan)">
+          <h3>Un gioco lungo e difficile</h3>
+          <p>Per chi ama le scelte che contano. Nessuna pubblicità. Salvataggio online e classifica tra Evocatori.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="immagini">
+    <div class="wrap shots-head reveal">
+      <p class="eyebrow">Dal gioco</p>
+      <h2>Uno sguardo dentro la Guglia</h2>
+    </div>
+    <div class="shots" role="region" aria-label="Immagini dal gioco" tabindex="0">
+      <figure class="phone"><img src="img/1-rifugio.webp" width="540" height="960" loading="lazy" alt="Il Rifugio: il porto ai piedi della Guglia con gli edifici e Lumen"><figcaption>Il Rifugio</figcaption></figure>
+      <figure class="phone"><img src="img/2-guglia.webp" width="540" height="960" loading="lazy" alt="La Guglia: la scelta del piano e del party"><figcaption>La Guglia</figcaption></figure>
+      <figure class="phone"><img src="img/3-eroe.webp" width="540" height="960" loading="lazy" alt="La scheda di un eroe con livello, stress e fiducia"><figcaption>Gli eroi</figcaption></figure>
+      <figure class="phone"><img src="img/4-evoca.webp" width="540" height="960" loading="lazy" alt="Il Pozzo delle Stelle, dove si evocano gli eroi"><figcaption>Il Pozzo delle Stelle</figcaption></figure>
+      <figure class="phone"><img src="img/5-mensa.webp" width="540" height="960" loading="lazy" alt="La Mensa del Rifugio con il menu e la dispensa"><figcaption>La Mensa</figcaption></figure>
+      <figure class="phone"><img src="img/6-battaglia.webp" width="540" height="960" loading="lazy" alt="Una battaglia automatica nelle Paludi di Vetro"><figcaption>In battaglia</figcaption></figure>
+    </div>
+  </section>
+
+  <section class="lumen">
+    <div class="wrap reveal">
+      <div class="lumen-art"><img src="img/lumen.svg" alt="Lumen, la fatina della lanterna" width="100" height="160" loading="lazy"></div>
+      <div>
+        <blockquote>«Oh! Oh oh oh. Questa luce è viola. Non succede spesso. Non ti abituare.»</blockquote>
+        <p><b>Lumen</b>, la piccola fatina della lanterna, ti guida. Ma Lumen sa più di quanto dice…</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta" id="contatti">
+    <div class="box reveal">
+      <span class="pill">Uscita prevista: dicembre 2026</span>
+      <h2>La Guglia ti aspetta.</h2>
+      <p>Starpick Heroes arriva presto su Android. Seguici su Instagram per la data d'uscita e le novità, o scrivici.</p>
+      <div class="actions">
+        <a class="btn primary" href="https://www.instagram.com/starpickheroes/"><svg class="i"><use href="#i-ig"/></svg>@starpickheroes</a>
+        <a class="btn" href="mailto:starpickheroes@gmail.com"><svg class="i"><use href="#i-mail"/></svg>starpickheroes@gmail.com</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <nav aria-label="Link">
+    <a href="https://www.instagram.com/starpickheroes/">Instagram</a>
+    <a href="mailto:starpickheroes@gmail.com">Contatti</a>
+    <a href="privacy.html">Privacy</a>
+  </nav>
+  © 2026 Starpick Heroes
+</footer>
+
+<script>
+  const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Twinkling sparkles on a canvas; `rise` makes them float up like heroes returning to the stars.
+  function sparkles(cv, n, colors, rise) {
+    const c = cv.getContext('2d'), dpr = devicePixelRatio || 1;
+    let w, h;
+    const size = () => { w = cv.width = cv.offsetWidth * dpr; h = cv.height = cv.offsetHeight * dpr; };
+    size(); addEventListener('resize', size);
+    const p = Array.from({ length: n }, () => ({
+      x: Math.random(), y: Math.random(), r: (Math.random() * 1.2 + .4) * dpr,
+      t: Math.random() * 6.3, s: Math.random() * .02 + .006, col: colors[Math.random() * colors.length | 0]
+    }));
+    (function draw() {
+      c.clearRect(0, 0, w, h);
+      for (const q of p) {
+        q.t += q.s;
+        if (rise && (q.y -= q.s * .05) < 0) { q.y = 1; q.x = Math.random(); }
+        c.globalAlpha = .25 + .75 * Math.abs(Math.sin(q.t));
+        c.fillStyle = q.col;
+        c.beginPath(); c.arc(q.x * w, q.y * h, q.r, 0, 7); c.fill();
+      }
+      if (!still) requestAnimationFrame(draw);
+    })();
+  }
+  sparkles(document.getElementById('sky'), 140, ['#F2F0FA', '#F2F0FA', '#F2F0FA', '#F5C451', '#57D9E8'], false);
+  sparkles(document.querySelector('.horizon canvas'), 60, ['#F5C451', '#FFD98A', '#FF9F43'], true);
+
+  const io = new IntersectionObserver(es => es.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+  }), { threshold: .12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+</body>
+</html>

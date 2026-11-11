@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 160">
+  <defs>
+    <radialGradient id="lumen-glow">
+      <stop offset="0" stop-color="#FFB45E" stop-opacity=".42"/>
+      <stop offset="1" stop-color="#FFB45E" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="lumen-fire" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0" stop-color="#C83A22"/>
+      <stop offset=".5" stop-color="#FF8F3A"/>
+      <stop offset="1" stop-color="#FFD36E"/>
+    </linearGradient>
+    <linearGradient id="lumen-burn" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#C9935D" stop-opacity="0"/>
+      <stop offset=".45" stop-color="#B9834F"/>
+      <stop offset="1" stop-color="#5A2F20"/>
+    </linearGradient>
+    <linearGradient id="lumen-glass-r" x1="0" y1="1" x2="1" y2="0">
+      <stop offset="0" stop-color="#57D9E8" stop-opacity=".55"/>
+      <stop offset="1" stop-color="#A66CFF" stop-opacity=".45"/>
+    </linearGradient>
+    <linearGradient id="lumen-glass-l" x1="1" y1="1" x2="0" y2="0">
+      <stop offset="0" stop-color="#F5C451" stop-opacity=".5"/>
+      <stop offset="1" stop-color="#57D9E8" stop-opacity=".45"/>
+    </linearGradient>
+    <clipPath id="lumen-eye-n"><path d="M49.3 35.3Q52.6 32.4 56.2 34.6Q53 37.4 49.3 35.3Z"/></clipPath>
+    <clipPath id="lumen-eye-f"><path d="M44.4 35.2Q46.2 33.4 48 34.5Q46.3 36.2 44.4 35.2Z"/></clipPath>
+    <path id="lumen-robe" d="M47 48C50 47 54 47 56.5 48.5C59 50 61 53 61 57C61 66 58.5 76 57.5 84C61 98 68 116 76 136L72.5 138.5 73 144 68.6 141.2 66 150.6 62.4 143.8 58.6 154.4 55.2 145 51.4 152.2 48.4 143.4 44.2 149.8 42 141.2 37.6 145.6 36.4 138.2 32.4 140 33 132C37 116 42 98 45 84C44 76 42 66 42 59C42 53 44 49.5 47 48Z"/>
+  </defs>
+  <circle cx="52" cy="72" r="58" fill="url(#lumen-glow)"/>
+  <g stroke="#1B1830" stroke-width="1.2" stroke-linejoin="round" stroke-linecap="round">
+    <g class="wing" id="wing_1">
+      <path d="M55 60C48 44 34 30 16 22C18 34 30 50 52 66Z" fill="url(#lumen-glass-l)"/>
+      <path d="M53 63C44 50 31 36 17 23M44 48L39 53M34 37L29 41M26 29L22 32" fill="none" stroke-width=".9"/>
+    </g>
+    <g class="wing" id="wing_2">
+      <path d="M58 60C64 44 78 28 96 18C95 30 84 48 62 66Z" fill="url(#lumen-glass-r)"/>
+      <path d="M60 63C70 50 82 34 95 19M68 48L74 54M77 37L83 42M86 28L90 32" fill="none" stroke-width=".9"/>
+      <path d="M70 40C76 33 82 28 88 24" fill="none" stroke="#fff" stroke-opacity=".5" stroke-width=".8"/>
+    </g>
+    <g class="wing low" id="wing_3">
+      <path d="M54 68C44 72 30 82 22 96C34 94 46 86 54 74Z" fill="url(#lumen-glass-r)"/>
+      <path d="M54 71C45 78 34 86 23 95M44 77L47 82M35 85L38 89" fill="none" stroke-width=".9"/>
+    </g>
+    <g class="wing low" id="wing_4">
+      <path d="M59 68C70 72 84 82 90 98C78 96 66 86 58 74Z" fill="url(#lumen-glass-l)"/>
+      <path d="M59 71C69 78 80 86 89 97M70 77L67 82M79 85L76 89" fill="none" stroke-width=".9"/>
+    </g>
+    <g id="flame">
+      <path d="M50 20C56 13 62 7 66 1.5C66 8 67 12 69 15C72 9 77 5 83 3C79 9 78 14 76 19C80 17 84 16 88.5 17C83 22 78 27 72 31C71 37 69 42 66 46C68 51 69 57 66.5 63C64 57 62 52 60 48C58 43 60 36 58 30C56 25 53 22 50 20Z" fill="url(#lumen-fire)"/>
+      <path d="M60 30C64 36 64 44 62 50M65.5 26C70 30 71 36 69 42M72 20C76 18 80 17 84 17M63 10C65 13 66 17 66 21" fill="none" stroke="#B8321E" stroke-opacity=".75" stroke-width=".8"/>
+      <path d="M56 16C60 11 63 7 65 4" fill="none" stroke="#FFF1C8" stroke-opacity=".8" stroke-width=".9"/>
+      <g fill="#F5C451" stroke="none"><circle cx="70" cy="1.5" r=".8"/><circle cx="90" cy="12" r=".6"/><circle cx="79" cy="8" r=".5"/></g>
+    </g>
+    <path d="M49 42.5L49.5 50H54.5L55 42.5Z" fill="#F3DCCB"/>
+    <path d="M49.4 43L54.8 43L54.6 46Q52 47.6 49.6 46Z" fill="#DFBFAA" stroke="none"/>
+    <g id="body">
+      <use href="#lumen-robe" fill="#F4EAD5" stroke="none"/>
+      <path d="M53 48C56 47.6 59 50 61 57C61 66 58.5 76 57.5 84C61 98 68 116 76 136L72.5 138.5 73 144 68.6 141.2 66 150.6 62.4 143.8 58.6 154.4 55.2 145C55 120 53 100 53 84Z" fill="#DCCDB0" stroke="none"/>
+      <path d="M33 128L37 126 41 129 46 125.6 51 128.6 55.6 125 60 128.4 64.6 125.6 69 128.2 73.6 129.6 76 136 72.5 138.5 73 144 68.6 141.2 66 150.6 62.4 143.8 58.6 154.4 55.2 145 51.4 152.2 48.4 143.4 44.2 149.8 42 141.2 37.6 145.6 36.4 138.2 32.4 140 33 132Z" fill="url(#lumen-burn)" stroke="none"/>
+      <path d="M47 92C45 106 42 118 40 128M52 96C52 110 52 120 51 130M58 94C61 108 65 120 68 128M49 62L47.5 80" fill="none" stroke="#C9B898" stroke-width=".8"/>
+      <path d="M42.6 60C42.8 70 44.4 78 45 84" fill="none" stroke="#F5C451" stroke-opacity=".55" stroke-width=".7"/>
+      <use href="#lumen-robe" fill="none"/>
+      <path d="M47.6 47C47.4 49.6 48 51 49 52C51.6 52.6 54.2 52.6 56.4 51.6C56.8 50.2 56.6 48.8 56 47.6C53.4 48.4 50.4 48.2 47.6 47Z" fill="#EADFC6" stroke-width=".9"/>
+      <path d="M45 84Q51 86.5 57.5 84M48 85.6L46.5 98" fill="none" stroke="#F5C451" stroke-width="1.1"/>
+      <g fill="#FF9F43" stroke="none"><circle cx="44" cy="155" r=".9"/><circle cx="61" cy="158" r=".7"/><circle cx="69" cy="152" r=".8"/></g>
+    </g>
+    <g id="arm_r">
+      <path d="M46 55C41.6 56.4 38.6 60.6 37 65.4L33.4 75.6C32.2 79.6 31.4 84.6 32.4 89C35.6 87.6 38.6 83.4 40.4 78.8C41.2 76.4 42 73.8 42.8 71C43.8 66.6 45.2 62.6 47 59.6Z" fill="#E2D2B2"/>
+      <path d="M39.6 64C38.4 70 36.8 76 35.6 84" fill="none" stroke="#C9B898" stroke-width=".7"/>
+      <path d="M33 106L39.5 45" fill="none" stroke-width="3.6"/>
+      <path d="M33 106L39.5 45" fill="none" stroke="#D3AE7E" stroke-width="2"/>
+      <ellipse cx="39.6" cy="43.5" rx="2.2" ry="2.9" fill="#7A2E22" stroke-width="1"/>
+      <g id="match_flame">
+        <path d="M39.6 40.5C35.6 35.5 36.6 29.5 40.2 24.5C42.4 30 44.4 35 39.6 40.5Z" fill="url(#lumen-fire)" stroke-width=".9"/>
+        <path d="M39.7 38.6C38 35.6 38.6 32.6 40.1 29.8C41.2 32.8 42 35.6 39.7 38.6Z" fill="#FFE3A3" stroke="none"/>
+      </g>
+      <ellipse cx="36.4" cy="76.4" rx="2" ry="2.5" fill="#F3DCCB" stroke-width="1"/>
+    </g>
+    <g id="head">
+      <path d="M54 22C60 22 63 27 63 33C63 38 61 42 58 44.5C55 47 51 48.5 48.5 48.5C46.5 48.5 45 47.2 44.3 45.5C43.6 43.6 43.6 41.5 44 39.6C43.4 38.6 43 37.5 43.2 36.5C43.4 35.5 44 35 44.3 34.2C44 27 48 22 54 22Z" fill="#F7E2D2"/>
+      <path d="M61 34C61 40 58 44 53 47C57 42 59.5 38 61 34Z" fill="#E9CCB8" stroke="none"/>
+      <g id="face_serena">
+        <path d="M49.3 35.3Q52.6 32.4 56.2 34.6Q53 37.4 49.3 35.3Z" fill="#FFF8EE" stroke="none"/>
+        <g clip-path="url(#lumen-eye-n)" stroke="none"><circle cx="52.4" cy="35" r="1.9" fill="#E8921E"/><circle cx="52.4" cy="35" r=".85" fill="#3A1A08"/><circle cx="51.8" cy="34.3" r=".55" fill="#fff"/></g>
+        <path d="M49 35.4Q52.6 31.8 56.6 34.4L57.8 33.6" fill="none" stroke-width="1.1"/>
+        <path d="M50.5 36.6Q53.4 37 55.8 35.2" fill="none" stroke="#C99A86" stroke-width=".45"/>
+        <path d="M44.4 35.2Q46.2 33.4 48 34.5Q46.3 36.2 44.4 35.2Z" fill="#FFF8EE" stroke="none"/>
+        <g clip-path="url(#lumen-eye-f)" stroke="none"><circle cx="46.3" cy="35" r="1.4" fill="#E8921E"/><circle cx="46.3" cy="35" r=".6" fill="#3A1A08"/></g>
+        <path d="M44.2 35.2Q46.1 33 48.2 34.3" fill="none" stroke-width=".9"/>
+        <path d="M49.6 31.2Q52.8 29.6 56.4 30.8M44.6 31.4Q46 30.5 47.6 30.8" fill="none" stroke="#8A3A22" stroke-width=".6"/>
+        <path d="M43.6 37.2L43.3 39.4Q44 40 44.8 39.6" fill="none" stroke="#C08A76" stroke-width=".55"/>
+        <path d="M44.6 42.4Q46.2 43.1 47.8 42.5" fill="none" stroke="#A85A4A" stroke-width=".7"/>
+        <path d="M45.2 43.4Q46.3 44 47.3 43.4" fill="none" stroke="#D99A8C" stroke-width=".55"/>
+      </g>
+    </g>
+    <path d="M46 22C51 15.5 60 15.5 63.6 23.5C65.8 30 65.2 38.5 61.6 45.5C60.6 39.5 59.2 34.5 56.6 31.2C54 28 50 27.6 46 22Z" fill="url(#lumen-fire)"/>
+    <path d="M58 22C61 26 62.4 32 62 38" fill="none" stroke="#B8321E" stroke-opacity=".7" stroke-width=".7"/>
+    <path d="M62.5 32C63.5 24 58.5 17.5 52.5 17.5C46.5 17.5 42.8 22.5 43.4 29Q44.8 31 46.2 33.6Q46.8 30.2 48.6 29.4Q49.6 31.8 50.8 33.2Q51.3 30 53 29Q54.2 31.6 55.8 32.6Q56.2 29.6 57.8 28.8Q59.8 31 62.5 32Z" fill="url(#lumen-fire)"/>
+    <path d="M47 26Q50 22 55 21.4M52 27.6Q53.6 25 56.6 24.2" fill="none" stroke="#FFF1C8" stroke-opacity=".75" stroke-width=".7"/>
+  </g>
+</svg>
