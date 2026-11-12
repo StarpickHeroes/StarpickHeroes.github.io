@@ -4,10 +4,17 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Starpick Heroes — Evoca eroi dalle stelle</title>
-<meta name="description" content="Evoca eroi dalle stelle e scala la Guglia di 100 piani. Chi cade non torna. Gioco di ruolo per Android, in arrivo.">
+<meta name="description" data-t="desc" content="Evoca eroi dalle stelle e scala la Guglia di 100 piani. Chi cade non torna. Gioco di ruolo per Android, in arrivo.">
 <meta name="theme-color" content="#0E1330">
 <link rel="icon" href="img/icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+<link rel="alternate" hreflang="it" href="https://starpickheroes.github.io/?lang=it">
+<link rel="alternate" hreflang="en" href="https://starpickheroes.github.io/?lang=en">
+<link rel="alternate" hreflang="es" href="https://starpickheroes.github.io/?lang=es">
+<link rel="alternate" hreflang="fr" href="https://starpickheroes.github.io/?lang=fr">
+<link rel="alternate" hreflang="de" href="https://starpickheroes.github.io/?lang=de">
+<link rel="alternate" hreflang="pt" href="https://starpickheroes.github.io/?lang=pt">
+<link rel="alternate" hreflang="x-default" href="https://starpickheroes.github.io/">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://starpickheroes.github.io/">
 <meta property="og:title" content="Starpick Heroes">
@@ -50,10 +57,27 @@
          padding: 16px max(16px, env(safe-area-inset-left)); max-width: 1180px; margin: 0 auto; }
   .brand { display: inline-flex; align-items: center; gap: 10px; color: var(--text); text-decoration: none; font: 600 1rem Cinzel, serif; letter-spacing: .06em; }
   .brand img { border-radius: 9px; }
+  .top-r { display: flex; gap: 10px; }
   .icon-btn { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; color: var(--text);
               border: 1px solid rgb(245 196 81 / .3); background: rgb(42 47 107 / .45); }
   .icon-btn:hover { color: var(--gold); }
   svg.i { width: 20px; height: 20px; flex: none; }
+  /* language menu (same block in privacy.html): a <details>, lang.js closes it on an outside tap */
+  .lang { position: relative; display: none; }
+  .js .lang { display: block; }
+  .lang summary { list-style: none; cursor: pointer; font: 700 .8rem Nunito, sans-serif; letter-spacing: .08em; }
+  .lang summary::-webkit-details-marker { display: none; }
+  .lang[open] summary { color: var(--gold); border-color: var(--gold); }
+  .lang ul { position: absolute; right: 0; top: calc(100% + 10px); z-index: 10; min-width: 210px; margin: 0; padding: 6px; list-style: none;
+             border-radius: 18px; border: 1px solid rgb(245 196 81 / .3); background: rgb(14 19 48 / .92); backdrop-filter: blur(10px);
+             box-shadow: 0 24px 50px -18px #000; animation: drop .18s ease-out; }
+  .lang a { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; padding: .6em .9em; border-radius: 12px;
+            color: var(--text); text-decoration: none; font: 700 .95rem Nunito, sans-serif; }
+  .lang a small { color: var(--muted); font-size: .72rem; letter-spacing: .1em; }
+  .lang a:hover { background: rgb(42 47 107 / .8); color: var(--gold); }
+  .lang a[aria-current], .lang a[aria-current] small { color: var(--gold); }
+  .lang a[aria-current] small::before { content: "★ "; }
+  @keyframes drop { from { opacity: 0; transform: translateY(-6px); } }
 
   /* hero — layout adapted from the 21st.dev "Coming Soon 02" block by Mohammad Shehadeh (Hirael), MIT License */
   .hero { position: relative; isolation: isolate; min-height: 100svh; display: flex; flex-direction: column;
@@ -131,6 +155,17 @@
   .lumen p { margin: 0; color: var(--muted); }
   @media (min-width: 720px) { .lumen .wrap { grid-template-columns: 200px 1fr; text-align: left; justify-items: start; } }
 
+  /* testers: the three steps of the closed test */
+  .gold { color: var(--gold); text-shadow: 0 0 30px rgb(245 196 81 / .55); }
+  .steps { padding: 0; list-style: none; counter-reset: s; }
+  @media (min-width: 640px) { .cards.steps { grid-template-columns: 1fr; } }
+  @media (min-width: 900px) { .cards.steps { grid-template-columns: repeat(3, 1fr); } }
+  .steps .card { display: flex; flex-direction: column; align-items: flex-start; counter-increment: s; }
+  .steps .card h3::before { content: counter(s); display: block; margin-bottom: 8px; font-size: 2.2rem; line-height: 1; color: var(--c); }
+  .steps .card p { margin: 0 0 1em; }
+  .steps .pill { margin-bottom: 16px; }
+  .steps .btn { margin-top: auto; }
+
   .cta .box { position: relative; overflow: hidden; max-width: 860px; margin: 0 auto; padding: 48px 24px; text-align: center; border-radius: 26px;
               background: radial-gradient(90% 120% at 50% 120%, rgb(245 196 81 / .22), transparent 60%), rgb(42 47 107 / .5);
               border: 1px solid rgb(245 196 81 / .25); }
@@ -164,23 +199,36 @@
 
 <header class="top">
   <a class="brand" href="./"><img src="img/icon.svg" alt="" width="34" height="34">Starpick Heroes</a>
-  <a class="icon-btn" href="https://www.instagram.com/starpickheroes/" aria-label="Starpick Heroes su Instagram"><svg class="i"><use href="#i-ig"/></svg></a>
+  <div class="top-r">
+    <details class="lang">
+      <summary class="icon-btn"><span>IT</span></summary>
+      <ul>
+        <li><a href="?lang=it" hreflang="it" lang="it">Italiano <small>IT</small></a></li>
+        <li><a href="?lang=en" hreflang="en" lang="en">English <small>EN</small></a></li>
+        <li><a href="?lang=es" hreflang="es" lang="es">Español <small>ES</small></a></li>
+        <li><a href="?lang=fr" hreflang="fr" lang="fr">Français <small>FR</small></a></li>
+        <li><a href="?lang=de" hreflang="de" lang="de">Deutsch <small>DE</small></a></li>
+        <li><a href="?lang=pt" hreflang="pt" lang="pt">Português (Brasil) <small>PT</small></a></li>
+      </ul>
+    </details>
+    <a class="icon-btn" href="https://www.instagram.com/starpickheroes/" aria-label="Starpick Heroes su Instagram" data-t="igLabel"><svg class="i"><use href="#i-ig"/></svg></a>
+  </div>
 </header>
 
 <main>
   <section class="hero" aria-labelledby="title">
     <div class="hero-body">
-      <span class="pill">Presto su Android</span>
+      <span class="pill" data-t="pill">Presto su Android</span>
       <h1 class="logo" id="title" aria-label="Starpick Heroes">ST<img src="img/star.svg" alt="" width="100" height="100">RPICK<small>HEROES</small></h1>
       <p class="tagline">
         <span class="m" style="--i:0">Ogni</span> <span class="m" style="--i:1">eroe</span> <span class="m" style="--i:2">nasce</span>
         <span class="m" style="--i:3">da</span> <span class="m" style="--i:4">una</span> <span class="m" style="--i:5">stella.</span>
         <span class="g" style="--i:6">Alcuni</span> <span class="g" style="--i:7">ne</span> <span class="g" style="--i:8">diventano</span> <span class="g" style="--i:9">una.</span>
       </p>
-      <p class="lead fade">Evoca eroi dalle stelle e scala la Guglia di 100 piani. Chi cade non torna.</p>
+      <p class="lead fade" data-t="lead">Evoca eroi dalle stelle e scala la Guglia di 100 piani. Chi cade non torna.</p>
       <div class="actions fade">
-        <a class="btn primary" href="https://www.instagram.com/starpickheroes/"><svg class="i"><use href="#i-ig"/></svg>Seguici su Instagram</a>
-        <a class="btn" href="#gioco">Scopri il gioco</a>
+        <a class="btn primary" href="#tester" data-t="btnTester">Diventa tester</a>
+        <a class="btn" href="https://www.instagram.com/starpickheroes/"><svg class="i"><use href="#i-ig"/></svg><span data-t="btnIg">Seguici su Instagram</span></a>
       </div>
     </div>
     <div class="horizon" aria-hidden="true">
@@ -192,28 +240,28 @@
   <section class="story" id="gioco">
     <div class="wrap">
       <div class="reveal">
-        <p class="eyebrow">La storia</p>
-        <h2>Il cielo di Astrea si è spento.</h2>
-        <p>Dal mare è salita la <b>Guglia</b>, una torre di cento piani, e ogni piano custodisce una stella rubata.</p>
-        <p>Sei l'<b>Evocatore</b>. Dal Pozzo delle Stelle chiami eroi da mondi lontani: un fornaio, una cartografa, un cavaliere caduto in disgrazia.
+        <p class="eyebrow" data-t="storyEye">La storia</p>
+        <h2 data-t="storyH">Il cielo di Astrea si è spento.</h2>
+        <p data-t="storyP1">Dal mare è salita la <b>Guglia</b>, una torre di cento piani, e ogni piano custodisce una stella rubata.</p>
+        <p data-t="storyP2">Sei l'<b>Evocatore</b>. Dal Pozzo delle Stelle chiami eroi da mondi lontani: un fornaio, una cartografa, un cavaliere caduto in disgrazia.
           Nessuno è uguale a un altro: ognuno ha un nome, un mondo, un carattere, paure, talenti nascosti e gusti suoi.</p>
       </div>
       <div class="cards">
         <article class="card reveal" style="--c:var(--r5)">
-          <h3>Battaglie automatiche, scelte che pesano</h3>
-          <p>Scegli il party e la formazione, poi guarda. Paura, ferite, veleno, risvegli all'ultimo respiro. E chi cade non torna: la morte è per sempre.</p>
+          <h3 data-t="c1h">Battaglie automatiche, scelte che pesano</h3>
+          <p data-t="c1p">Scegli il party e la formazione, poi guarda. Paura, ferite, veleno, risvegli all'ultimo respiro. E chi cade non torna: la morte è per sempre.</p>
         </article>
         <article class="card reveal" style="--c:var(--r4)">
-          <h3>Non serve nascere a cinque stelle</h3>
-          <p>Un 1★ allenato bene può superare un 5★. Allenamento, promozioni con le pietre, classi avanzate, abilità che si fondono.</p>
+          <h3 data-t="c2h">Non serve nascere a cinque stelle</h3>
+          <p data-t="c2p">Un 1★ allenato bene può superare un 5★. Allenamento, promozioni con le pietre, classi avanzate, abilità che si fondono.</p>
         </article>
         <article class="card reveal" style="--c:var(--lantern)">
-          <h3>Il Rifugio</h3>
-          <p>Un vecchio porto ai piedi della Guglia: Mensa, Forgia, Laboratorio alchemico. Gli eroi vivono anche quando sei via: si allenano, litigano, si affezionano.</p>
+          <h3 data-t="c3h">Il Rifugio</h3>
+          <p data-t="c3p">Un vecchio porto ai piedi della Guglia: Mensa, Forgia, Laboratorio alchemico. Gli eroi vivono anche quando sei via: si allenano, litigano, si affezionano.</p>
         </article>
         <article class="card reveal" style="--c:var(--cyan)">
-          <h3>Un gioco lungo e difficile</h3>
-          <p>Per chi ama le scelte che contano. Nessuna pubblicità. Salvataggio online e classifica tra Evocatori.</p>
+          <h3 data-t="c4h">Un gioco lungo e difficile</h3>
+          <p data-t="c4p">Per chi ama le scelte che contano. Nessuna pubblicità. Salvataggio online e classifica tra Evocatori.</p>
         </article>
       </div>
     </div>
@@ -221,34 +269,63 @@
 
   <section id="immagini">
     <div class="wrap shots-head reveal">
-      <p class="eyebrow">Dal gioco</p>
-      <h2>Uno sguardo dentro la Guglia</h2>
+      <p class="eyebrow" data-t="shotsEye">Dal gioco</p>
+      <h2 data-t="shotsH">Uno sguardo dentro la Guglia</h2>
     </div>
-    <div class="shots" role="region" aria-label="Immagini dal gioco" tabindex="0">
-      <figure class="phone"><img src="img/1-rifugio.webp" width="540" height="960" loading="lazy" alt="Il Rifugio: il porto ai piedi della Guglia con gli edifici e Lumen"><figcaption>Il Rifugio</figcaption></figure>
-      <figure class="phone"><img src="img/2-guglia.webp" width="540" height="960" loading="lazy" alt="La Guglia: la scelta del piano e del party"><figcaption>La Guglia</figcaption></figure>
-      <figure class="phone"><img src="img/3-eroe.webp" width="540" height="960" loading="lazy" alt="La scheda di un eroe con livello, stress e fiducia"><figcaption>Gli eroi</figcaption></figure>
-      <figure class="phone"><img src="img/4-evoca.webp" width="540" height="960" loading="lazy" alt="Il Pozzo delle Stelle, dove si evocano gli eroi"><figcaption>Il Pozzo delle Stelle</figcaption></figure>
-      <figure class="phone"><img src="img/5-mensa.webp" width="540" height="960" loading="lazy" alt="La Mensa del Rifugio con il menu e la dispensa"><figcaption>La Mensa</figcaption></figure>
-      <figure class="phone"><img src="img/6-battaglia.webp" width="540" height="960" loading="lazy" alt="Una battaglia automatica nelle Paludi di Vetro"><figcaption>In battaglia</figcaption></figure>
+    <div class="shots" role="region" aria-label="Immagini dal gioco" data-t="shotsLabel" tabindex="0">
+      <figure class="phone"><img src="img/it/1-rifugio.webp" width="540" height="960" loading="lazy" data-t="s1a" alt="Il Rifugio: il porto ai piedi della Guglia con gli edifici e Lumen"><figcaption data-t="s1">Il Rifugio</figcaption></figure>
+      <figure class="phone"><img src="img/it/2-guglia.webp" width="540" height="960" loading="lazy" data-t="s2a" alt="La Guglia: la scelta del piano e del party"><figcaption data-t="s2">La Guglia</figcaption></figure>
+      <figure class="phone"><img src="img/it/3-eroe.webp" width="540" height="960" loading="lazy" data-t="s3a" alt="La scheda di un eroe con livello, stress e fiducia"><figcaption data-t="s3">Gli eroi</figcaption></figure>
+      <figure class="phone"><img src="img/it/4-evoca.webp" width="540" height="960" loading="lazy" data-t="s4a" alt="Il Pozzo delle Stelle, dove si evocano gli eroi"><figcaption data-t="s4">Il Pozzo delle Stelle</figcaption></figure>
+      <figure class="phone"><img src="img/it/5-mensa.webp" width="540" height="960" loading="lazy" data-t="s5a" alt="La Mensa del Rifugio e il suo potenziamento"><figcaption data-t="s5">La Mensa</figcaption></figure>
+      <figure class="phone"><img src="img/it/6-battaglia.webp" width="540" height="960" loading="lazy" data-t="s6a" alt="Una battaglia automatica nelle Paludi di Vetro"><figcaption data-t="s6">In battaglia</figcaption></figure>
     </div>
   </section>
 
   <section class="lumen">
     <div class="wrap reveal">
-      <div class="lumen-art"><img src="img/lumen.svg" alt="Lumen, la fatina della lanterna" width="100" height="160" loading="lazy"></div>
+      <div class="lumen-art"><img src="img/lumen.svg" data-t="lumenAlt" alt="Lumen, la fatina della lanterna" width="100" height="160" loading="lazy"></div>
       <div>
-        <blockquote>«Oh! Oh oh oh. Questa luce è viola. Non succede spesso. Non ti abituare.»</blockquote>
-        <p><b>Lumen</b>, la piccola fatina della lanterna, ti guida. Ma Lumen sa più di quanto dice…</p>
+        <blockquote data-t="lumenQ">«Oh! Oh oh oh. Questa luce è viola. Non succede spesso. Non ti abituare.»</blockquote>
+        <p data-t="lumenP"><b>Lumen</b>, la piccola fatina della lanterna, ti guida. Ma Lumen sa più di quanto dice…</p>
       </div>
+    </div>
+  </section>
+
+  <section class="story" id="tester">
+    <div class="wrap">
+      <div class="reveal">
+        <p class="eyebrow" data-t="testEye">Test chiuso</p>
+        <h2 data-t="testH">Cerchiamo <span class="gold">12</span> tester.</h2>
+        <p data-t="testP">Prima dell'uscita Google chiede un <b>test chiuso</b>: almeno <b>12 persone</b> che giocano per <b>14 giorni di fila</b>.
+          Ti servono solo un telefono <b>Android</b> e un account <b>Google</b>. In cambio scali la Guglia prima di tutti, e quello che ci dici finisce nel gioco.</p>
+      </div>
+      <ol class="cards steps">
+        <li class="card reveal" style="--c:var(--gold)">
+          <h3 data-t="t1h">Entra nel gruppo dei tester</h3>
+          <p data-t="t1p">Con l'account Google che usi sul telefono Android. Il gruppo è aperto: chiunque può iscriversi.</p>
+          <a class="btn primary" href="https://groups.google.com/g/starpickheroes-testers" data-t="t1b">Entra nel gruppo</a>
+        </li>
+        <li class="card reveal" style="--c:var(--r4)">
+          <h3 data-t="t2h">Diventa tester su Google Play</h3>
+          <p data-t="t2p">Apri la pagina del test e tocca «Diventa un tester». Funziona appena Google approva il test.</p>
+          <span class="pill" data-t="t2s">In revisione da Google</span>
+          <a class="btn" href="https://play.google.com/apps/testing/com.starpickheroes.game" data-t="t2b">Apri il test</a>
+        </li>
+        <li class="card reveal" style="--c:var(--cyan)">
+          <h3 data-t="t3h">Installalo e tienilo 14 giorni</h3>
+          <p data-t="t3p">Scarica Starpick Heroes da Google Play, gioca quando vuoi e raccontaci cosa si rompe:
+            <a href="mailto:starpickheroes@gmail.com">per email</a> o in DM su <a href="https://www.instagram.com/starpickheroes/">Instagram</a>.</p>
+        </li>
+      </ol>
     </div>
   </section>
 
   <section class="cta" id="contatti">
     <div class="box reveal">
-      <span class="pill">Uscita prevista: dicembre 2026</span>
-      <h2>La Guglia ti aspetta.</h2>
-      <p>Starpick Heroes arriva presto su Android. Seguici su Instagram per la data d'uscita e le novità, o scrivici.</p>
+      <span class="pill" data-t="ctaPill">Uscita prevista: dicembre 2026</span>
+      <h2 data-t="ctaH">La Guglia ti aspetta.</h2>
+      <p data-t="ctaP">Starpick Heroes arriva presto su Android. Seguici su Instagram per la data d'uscita e le novità, o scrivici.</p>
       <div class="actions">
         <a class="btn primary" href="https://www.instagram.com/starpickheroes/"><svg class="i"><use href="#i-ig"/></svg>@starpickheroes</a>
         <a class="btn" href="mailto:starpickheroes@gmail.com"><svg class="i"><use href="#i-mail"/></svg>starpickheroes@gmail.com</a>
@@ -259,14 +336,238 @@
 
 <footer>
   <nav aria-label="Link">
+    <a href="#tester" data-t="btnTester">Diventa tester</a>
     <a href="https://www.instagram.com/starpickheroes/">Instagram</a>
-    <a href="mailto:starpickheroes@gmail.com">Contatti</a>
-    <a href="privacy.html">Privacy</a>
+    <a href="mailto:starpickheroes@gmail.com" data-t="fContact">Contatti</a>
+    <a href="privacy.html" data-t="fPrivacy">Privacy</a>
   </nav>
   © 2026 Starpick Heroes
 </footer>
 
+<script src="lang.js"></script>
 <script>
+  // Texts for the language L (lang.js). Italian is the HTML itself (works without JS); a key missing in a language falls back to English.
+  const MAIL = '<a href="mailto:starpickheroes@gmail.com">', IG = '<a href="https://www.instagram.com/starpickheroes/">Instagram</a>';
+  const T = {
+    en: {
+      title: 'Starpick Heroes — Summon heroes from the stars',
+      desc: 'Summon heroes from the stars and climb the 100-floor Spire. Whoever falls never comes back. A role-playing game for Android, coming soon.',
+      igLabel: 'Starpick Heroes on Instagram',
+      pill: 'Coming soon to Android',
+      tag: ['Every hero is born from a star.', 'Some become one.'],
+      lead: 'Summon heroes from the stars and climb the 100-floor Spire. Whoever falls never comes back.',
+      btnTester: 'Become a tester', btnIg: 'Follow us on Instagram',
+      storyEye: 'The story', storyH: 'The sky of Astrea has gone dark.',
+      storyP1: 'From the sea rose the <b>Spire</b>, a tower of a hundred floors, and every floor guards a stolen star.',
+      storyP2: 'You are the <b>Summoner</b>. From the Well of Stars you call heroes from faraway worlds: a baker, a cartographer, a disgraced knight. No two are alike: each has a name, a world, a character, fears, hidden talents and tastes of their own.',
+      c1h: 'Automatic battles, choices that matter',
+      c1p: 'Choose your party and formation, then watch. Fear, wounds, poison, last-breath awakenings. And whoever falls never comes back: death is forever.',
+      c2h: "You don't need to be born with five stars",
+      c2p: 'A well-trained 1★ can surpass a 5★. Training, promotions with stones, advanced classes, skills that fuse together.',
+      c3h: 'The Refuge',
+      c3p: "An old harbour at the foot of the Spire: Canteen, Forge, Alchemy Lab. Heroes live on while you're away: they train, argue, grow fond of each other.",
+      c4h: 'A long, hard game',
+      c4p: 'For those who love choices that count. No ads. Online save and a leaderboard among Summoners.',
+      shotsEye: 'From the game', shotsH: 'A look inside the Spire', shotsLabel: 'Images from the game',
+      s1a: 'The Refuge: the harbour at the foot of the Spire with its buildings and Lumen', s1: 'The Refuge',
+      s2a: 'The Spire: choosing the floor and the party', s2: 'The Spire',
+      s3a: "A hero's sheet with level, stress and trust", s3: 'The heroes',
+      s4a: 'The Well of Stars, where heroes are summoned', s4: 'The Well of Stars',
+      s5a: "The Refuge's Canteen and its upgrade", s5: 'The Canteen',
+      s6a: 'An automatic battle in the Glass Marshes', s6: 'In battle',
+      lumenAlt: 'Lumen, the lantern fairy',
+      lumenQ: "“Oh! Oh oh oh. This light is violet. It doesn't happen often. Don't get used to it.”",
+      lumenP: '<b>Lumen</b>, the little lantern fairy, guides you. But Lumen knows more than she says…',
+      testEye: 'Closed test', testH: 'We need <span class="gold">12</span> testers.',
+      testP: 'Before a new game can launch, Google asks for a <b>closed test</b>: at least <b>12 people</b> playing for <b>14 days</b> in a row. All you need is an <b>Android</b> phone and a <b>Google</b> account. In return you climb the Spire before anyone else, and what you tell us ends up in the game.',
+      t1h: 'Join the testers group', t1p: 'With the Google account you use on your Android phone. The group is open: anyone can join.', t1b: 'Join the group',
+      t2h: 'Become a tester on Google Play', t2p: 'Open the test page and tap “Become a tester”. It works as soon as Google approves the test.',
+      t2s: 'Under review by Google', t2b: 'Open the test',
+      t3h: 'Install it and keep it for 14 days',
+      t3p: `Download Starpick Heroes from Google Play, play when you like and tell us what breaks: ${MAIL}by email</a> or by DM on ${IG}.`,
+      ctaPill: 'Expected release: December 2026', ctaH: 'The Spire awaits you.',
+      ctaP: 'Starpick Heroes is coming soon to Android. Follow us on Instagram for the release date and news, or write to us.',
+      fContact: 'Contact', fPrivacy: 'Privacy'
+    },
+    es: {
+      title: 'Starpick Heroes — Invoca héroes de las estrellas',
+      desc: 'Invoca héroes de las estrellas y escala la Aguja de 100 pisos. Quien cae no vuelve. Juego de rol para Android, muy pronto.',
+      igLabel: 'Starpick Heroes en Instagram',
+      pill: 'Muy pronto en Android',
+      tag: ['Cada héroe nace de una estrella.', 'Algunos llegan a serlo.'],
+      lead: 'Invoca héroes de las estrellas y escala la Aguja de 100 pisos. Quien cae no vuelve.',
+      btnTester: 'Hazte tester', btnIg: 'Síguenos en Instagram',
+      storyEye: 'La historia', storyH: 'El cielo de Astrea se ha apagado.',
+      storyP1: 'Del mar surgió la <b>Aguja</b>, una torre de cien pisos, y cada piso guarda una estrella robada.',
+      storyP2: 'Eres el <b>Invocador</b>. Desde el Pozo de las Estrellas llamas a héroes de mundos lejanos: un panadero, una cartógrafa, un caballero caído en desgracia. Ninguno es igual a otro: cada uno tiene un nombre, un mundo, un carácter, miedos, talentos ocultos y gustos propios.',
+      c1h: 'Batallas automáticas, decisiones que pesan',
+      c1p: 'Elige el grupo y la formación, y luego mira. Miedo, heridas, veneno, despertares en el último aliento. Y quien cae no vuelve: la muerte es para siempre.',
+      c2h: 'No hace falta nacer con cinco estrellas',
+      c2p: 'Un 1★ bien entrenado puede superar a un 5★. Entrenamiento, ascensos con piedras, clases avanzadas, habilidades que se funden.',
+      c3h: 'El Refugio',
+      c3p: 'Un viejo puerto al pie de la Aguja: Comedor, Forja, Laboratorio alquímico. Los héroes viven también cuando no estás: entrenan, discuten, se encariñan.',
+      c4h: 'Un juego largo y difícil',
+      c4p: 'Para quien ama las decisiones que cuentan. Sin anuncios. Guardado en línea y clasificación entre Invocadores.',
+      shotsEye: 'Del juego', shotsH: 'Un vistazo dentro de la Aguja', shotsLabel: 'Imágenes del juego',
+      s1a: 'El Refugio: el puerto al pie de la Aguja con sus edificios y Lumen', s1: 'El Refugio',
+      s2a: 'La Aguja: la elección del piso y del grupo', s2: 'La Aguja',
+      s3a: 'La ficha de un héroe con nivel, estrés y confianza', s3: 'Los héroes',
+      s4a: 'El Pozo de las Estrellas, donde se invocan los héroes', s4: 'El Pozo de las Estrellas',
+      s5a: 'El Comedor del Refugio y su mejora', s5: 'El Comedor',
+      s6a: 'Una batalla automática en los Pantanos de Cristal', s6: 'En batalla',
+      lumenAlt: 'Lumen, el hada del farol',
+      lumenQ: '«¡Oh! Oh, oh, oh. Esta luz es violeta. No pasa a menudo. No te acostumbres.»',
+      lumenP: '<b>Lumen</b>, la pequeña hada del farol, te guía. Pero Lumen sabe más de lo que dice…',
+      testEye: 'Prueba cerrada', testH: 'Buscamos <span class="gold">12</span> testers.',
+      testP: 'Antes del lanzamiento, Google pide una <b>prueba cerrada</b>: al menos <b>12 personas</b> jugando durante <b>14 días</b> seguidos. Solo necesitas un teléfono <b>Android</b> y una cuenta de <b>Google</b>. A cambio, escalas la Aguja antes que nadie, y lo que nos cuentes acaba en el juego.',
+      t1h: 'Únete al grupo de testers', t1p: 'Con la cuenta de Google que usas en tu teléfono Android. El grupo es abierto: cualquiera puede unirse.', t1b: 'Unirme al grupo',
+      t2h: 'Hazte tester en Google Play', t2p: 'Abre la página de la prueba y toca «Convertirse en tester». Funciona en cuanto Google apruebe la prueba.',
+      t2s: 'En revisión por Google', t2b: 'Abrir la prueba',
+      t3h: 'Instálalo y mantenlo 14 días',
+      t3p: `Descarga Starpick Heroes de Google Play, juega cuando quieras y cuéntanos qué falla: ${MAIL}por email</a> o por DM en ${IG}.`,
+      ctaPill: 'Lanzamiento previsto: diciembre de 2026', ctaH: 'La Aguja te espera.',
+      ctaP: 'Starpick Heroes llega pronto a Android. Síguenos en Instagram para la fecha de lanzamiento y las novedades, o escríbenos.',
+      fContact: 'Contacto', fPrivacy: 'Privacidad'
+    },
+    fr: {
+      title: 'Starpick Heroes — Invoquez des héros des étoiles',
+      desc: 'Invoquez des héros des étoiles et gravissez la Flèche de 100 étages. Qui tombe ne revient pas. Jeu de rôle pour Android, bientôt disponible.',
+      igLabel: 'Starpick Heroes sur Instagram',
+      pill: 'Bientôt sur Android',
+      tag: ["Chaque héros naît d'une étoile.", 'Certains en deviennent une.'],
+      lead: 'Invoquez des héros des étoiles et gravissez la Flèche de 100 étages. Qui tombe ne revient pas.',
+      btnTester: 'Devenir testeur', btnIg: 'Suivez-nous sur Instagram',
+      storyEye: "L'histoire", storyH: "Le ciel d'Astrea s'est éteint.",
+      storyP1: "De la mer s'est dressée la <b>Flèche</b>, une tour de cent étages, et chaque étage garde une étoile volée.",
+      storyP2: "Vous êtes l'<b>Invocateur</b>. Depuis le Puits des Étoiles, vous appelez des héros de mondes lointains : un boulanger, une cartographe, un chevalier déchu. Aucun ne ressemble à un autre : chacun a un nom, un monde, un caractère, des peurs, des talents cachés et ses propres goûts.",
+      c1h: 'Combats automatiques, choix qui comptent',
+      c1p: 'Choisissez le groupe et la formation, puis regardez. Peur, blessures, poison, éveils au dernier souffle. Et qui tombe ne revient pas : la mort est définitive.',
+      c2h: 'Pas besoin de naître avec cinq étoiles',
+      c2p: 'Un 1★ bien entraîné peut dépasser un 5★. Entraînement, promotions avec des pierres, classes avancées, compétences qui fusionnent.',
+      c3h: 'Le Refuge',
+      c3p: "Un vieux port au pied de la Flèche : Cantine, Forge, Laboratoire d'alchimie. Les héros vivent même quand vous n'êtes pas là : ils s'entraînent, se disputent, s'attachent.",
+      c4h: 'Un jeu long et difficile',
+      c4p: 'Pour ceux qui aiment les choix qui comptent. Sans publicité. Sauvegarde en ligne et classement des Invocateurs.',
+      shotsEye: 'Dans le jeu', shotsH: "Un coup d'œil dans la Flèche", shotsLabel: 'Images du jeu',
+      s1a: 'Le Refuge : le port au pied de la Flèche avec ses bâtiments et Lumen', s1: 'Le Refuge',
+      s2a: "La Flèche : le choix de l'étage et du groupe", s2: 'La Flèche',
+      s3a: "La fiche d'un héros avec niveau, stress et confiance", s3: 'Les héros',
+      s4a: "Le Puits des Étoiles, où l'on invoque les héros", s4: 'Le Puits des Étoiles',
+      s5a: 'La Cantine du Refuge et son amélioration', s5: 'La Cantine',
+      s6a: 'Un combat automatique dans les Marais de Verre', s6: 'Au combat',
+      lumenAlt: 'Lumen, la fée de la lanterne',
+      lumenQ: "« Oh ! Oh oh oh. Cette lumière est violette. Ça n'arrive pas souvent. Ne vous y habituez pas. »",
+      lumenP: "<b>Lumen</b>, la petite fée de la lanterne, vous guide. Mais Lumen en sait plus qu'elle ne le dit…",
+      testEye: 'Test fermé', testH: 'Nous cherchons <span class="gold">12</span> testeurs.',
+      testP: "Avant la sortie, Google demande un <b>test fermé</b> : au moins <b>12 personnes</b> qui jouent pendant <b>14 jours</b> d'affilée. Il vous faut seulement un téléphone <b>Android</b> et un compte <b>Google</b>. En échange, vous gravissez la Flèche avant tout le monde, et ce que vous nous dites finit dans le jeu.",
+      t1h: 'Rejoignez le groupe des testeurs', t1p: "Avec le compte Google de votre téléphone Android. Le groupe est ouvert : tout le monde peut s'inscrire.", t1b: 'Rejoindre le groupe',
+      t2h: 'Devenez testeur sur Google Play', t2p: 'Ouvrez la page du test et touchez « Devenir testeur ». Elle fonctionne dès que Google approuve le test.',
+      t2s: 'En cours de validation par Google', t2b: 'Ouvrir le test',
+      t3h: 'Installez-le et gardez-le 14 jours',
+      t3p: `Téléchargez Starpick Heroes sur Google Play, jouez quand vous voulez et dites-nous ce qui ne marche pas : ${MAIL}par e-mail</a> ou en DM sur ${IG}.`,
+      ctaPill: 'Sortie prévue : décembre 2026', ctaH: 'La Flèche vous attend.',
+      ctaP: 'Starpick Heroes arrive bientôt sur Android. Suivez-nous sur Instagram pour la date de sortie et les nouveautés, ou écrivez-nous.',
+      fContact: 'Contact', fPrivacy: 'Confidentialité'
+    },
+    de: {
+      title: 'Starpick Heroes — Beschwöre Helden aus den Sternen',
+      desc: 'Beschwöre Helden aus den Sternen und erklimm den Turm mit 100 Etagen. Wer fällt, kehrt nie zurück. Rollenspiel für Android, bald erhältlich.',
+      igLabel: 'Starpick Heroes auf Instagram',
+      pill: 'Bald für Android',
+      tag: ['Jeder Held wird aus einem Stern geboren.', 'Manche werden selbst einer.'],
+      lead: 'Beschwöre Helden aus den Sternen und erklimm den Turm mit 100 Etagen. Wer fällt, kehrt nie zurück.',
+      btnTester: 'Tester werden', btnIg: 'Folge uns auf Instagram',
+      storyEye: 'Die Geschichte', storyH: 'Der Himmel von Astrea ist erloschen.',
+      storyP1: 'Aus dem Meer stieg der <b>Turm</b>, hundert Etagen hoch, und jede Etage bewacht einen gestohlenen Stern.',
+      storyP2: 'Du bist der <b>Beschwörer</b>. Aus dem Sternenbrunnen rufst du Helden aus fernen Welten: einen Bäcker, eine Kartografin, einen in Ungnade gefallenen Ritter. Keiner gleicht dem anderen: Jeder hat einen Namen, eine Welt, einen Charakter, Ängste, verborgene Talente und eigene Vorlieben.',
+      c1h: 'Automatische Kämpfe, Entscheidungen mit Gewicht',
+      c1p: 'Wähle Gruppe und Formation, dann schau zu. Angst, Wunden, Gift, Erwachen im letzten Atemzug. Und wer fällt, kehrt nie zurück: Der Tod ist endgültig.',
+      c2h: 'Man muss nicht mit fünf Sternen geboren sein',
+      c2p: 'Ein gut trainierter 1★ kann einen 5★ übertreffen. Training, Beförderungen mit Steinen, fortgeschrittene Klassen, Fertigkeiten, die verschmelzen.',
+      c3h: 'Die Zuflucht',
+      c3p: 'Ein alter Hafen am Fuß des Turms: Kantine, Schmiede, Alchemielabor. Die Helden leben weiter, auch wenn du weg bist: Sie trainieren, streiten, gewinnen sich lieb.',
+      c4h: 'Ein langes, schweres Spiel',
+      c4p: 'Für alle, die Entscheidungen lieben, die zählen. Keine Werbung. Online-Speicherstand und Rangliste der Beschwörer.',
+      shotsEye: 'Aus dem Spiel', shotsH: 'Ein Blick in den Turm', shotsLabel: 'Bilder aus dem Spiel',
+      s1a: 'Die Zuflucht: der Hafen am Fuß des Turms mit seinen Gebäuden und Lumen', s1: 'Die Zuflucht',
+      s2a: 'Der Turm: Wahl der Etage und der Gruppe', s2: 'Der Turm',
+      s3a: 'Das Profil eines Helden mit Stufe, Stress und Vertrauen', s3: 'Die Helden',
+      s4a: 'Der Sternenbrunnen, in dem die Helden beschworen werden', s4: 'Der Sternenbrunnen',
+      s5a: 'Die Kantine der Zuflucht und ihr Ausbau', s5: 'Die Kantine',
+      s6a: 'Ein automatischer Kampf in den Glassümpfen', s6: 'Im Kampf',
+      lumenAlt: 'Lumen, die Laternenfee',
+      lumenQ: '„Oh! Oh oh oh. Dieses Licht ist violett. Das passiert nicht oft. Gewöhn dich nicht daran.“',
+      lumenP: '<b>Lumen</b>, die kleine Laternenfee, führt dich. Doch Lumen weiß mehr, als sie sagt …',
+      testEye: 'Geschlossener Test', testH: 'Wir suchen <span class="gold">12</span> Tester.',
+      testP: 'Vor dem Start verlangt Google einen <b>geschlossenen Test</b>: mindestens <b>12 Personen</b>, die <b>14 Tage</b> am Stück spielen. Du brauchst nur ein <b>Android</b>-Handy und ein <b>Google</b>-Konto. Dafür erklimmst du den Turm vor allen anderen, und was du uns erzählst, landet im Spiel.',
+      t1h: 'Tritt der Testergruppe bei', t1p: 'Mit dem Google-Konto, das du auf deinem Android-Handy nutzt. Die Gruppe ist offen: Jeder kann beitreten.', t1b: 'Der Gruppe beitreten',
+      t2h: 'Werde Tester bei Google Play', t2p: 'Öffne die Testseite und tippe auf „Tester werden“. Das klappt, sobald Google den Test freigibt.',
+      t2s: 'Wird von Google geprüft', t2b: 'Test öffnen',
+      t3h: 'Installieren und 14 Tage behalten',
+      t3p: `Lade Starpick Heroes bei Google Play herunter, spiel, wann du willst, und sag uns, was nicht funktioniert: ${MAIL}per E-Mail</a> oder per DM auf ${IG}.`,
+      ctaPill: 'Geplanter Start: Dezember 2026', ctaH: 'Der Turm wartet auf dich.',
+      ctaP: 'Starpick Heroes erscheint bald für Android. Folge uns auf Instagram für den Starttermin und Neuigkeiten, oder schreib uns.',
+      fContact: 'Kontakt', fPrivacy: 'Datenschutz'
+    },
+    pt: {
+      title: 'Starpick Heroes — Invoque heróis das estrelas',
+      desc: 'Invoque heróis das estrelas e suba a Agulha de 100 andares. Quem cai não volta. RPG para Android, em breve.',
+      igLabel: 'Starpick Heroes no Instagram',
+      pill: 'Em breve no Android',
+      tag: ['Todo herói nasce de uma estrela.', 'Alguns se tornam uma.'],
+      lead: 'Invoque heróis das estrelas e suba a Agulha de 100 andares. Quem cai não volta.',
+      btnTester: 'Seja testador', btnIg: 'Siga-nos no Instagram',
+      storyEye: 'A história', storyH: 'O céu de Astrea se apagou.',
+      storyP1: 'Do mar surgiu a <b>Agulha</b>, uma torre de cem andares, e cada andar guarda uma estrela roubada.',
+      storyP2: 'Você é o <b>Invocador</b>. Do Poço das Estrelas você chama heróis de mundos distantes: um padeiro, uma cartógrafa, um cavaleiro caído em desgraça. Nenhum é igual ao outro: cada um tem um nome, um mundo, uma personalidade, medos, talentos ocultos e gostos próprios.',
+      c1h: 'Batalhas automáticas, escolhas que pesam',
+      c1p: 'Escolha o grupo e a formação, depois assista. Medo, ferimentos, veneno, despertares no último suspiro. E quem cai não volta: a morte é para sempre.',
+      c2h: 'Não precisa nascer com cinco estrelas',
+      c2p: 'Um 1★ bem treinado pode superar um 5★. Treino, promoções com pedras, classes avançadas, habilidades que se fundem.',
+      c3h: 'O Refúgio',
+      c3p: 'Um velho porto aos pés da Agulha: Refeitório, Forja, Laboratório alquímico. Os heróis vivem mesmo quando você não está: treinam, brigam, se apegam.',
+      c4h: 'Um jogo longo e difícil',
+      c4p: 'Para quem ama escolhas que contam. Sem anúncios. Salvamento online e ranking entre Invocadores.',
+      shotsEye: 'Do jogo', shotsH: 'Uma olhada dentro da Agulha', shotsLabel: 'Imagens do jogo',
+      s1a: 'O Refúgio: o porto aos pés da Agulha com seus edifícios e Lumen', s1: 'O Refúgio',
+      s2a: 'A Agulha: a escolha do andar e do grupo', s2: 'A Agulha',
+      s3a: 'A ficha de um herói com nível, estresse e confiança', s3: 'Os heróis',
+      s4a: 'O Poço das Estrelas, onde os heróis são invocados', s4: 'O Poço das Estrelas',
+      s5a: 'O Refeitório do Refúgio e sua melhoria', s5: 'O Refeitório',
+      s6a: 'Uma batalha automática nos Pântanos de Vidro', s6: 'Em batalha',
+      lumenAlt: 'Lumen, a fada da lanterna',
+      lumenQ: '“Oh! Oh oh oh. Esta luz é violeta. Não acontece sempre. Não se acostume.”',
+      lumenP: '<b>Lumen</b>, a pequena fada da lanterna, guia você. Mas Lumen sabe mais do que diz…',
+      testEye: 'Teste fechado', testH: 'Procuramos <span class="gold">12</span> testadores.',
+      testP: 'Antes do lançamento, o Google pede um <b>teste fechado</b>: pelo menos <b>12 pessoas</b> jogando por <b>14 dias</b> seguidos. Você só precisa de um celular <b>Android</b> e uma conta <b>Google</b>. Em troca, você sobe a Agulha antes de todo mundo, e o que você nos contar vai parar no jogo.',
+      t1h: 'Entre no grupo de testadores', t1p: 'Com a conta Google que você usa no seu celular Android. O grupo é aberto: qualquer pessoa pode entrar.', t1b: 'Entrar no grupo',
+      t2h: 'Seja testador no Google Play', t2p: 'Abra a página do teste e toque em “Tornar-se testador”. Funciona assim que o Google aprovar o teste.',
+      t2s: 'Em análise pelo Google', t2b: 'Abrir o teste',
+      t3h: 'Instale e mantenha por 14 dias',
+      t3p: `Baixe Starpick Heroes no Google Play, jogue quando quiser e conte para a gente o que quebra: ${MAIL}por e-mail</a> ou por DM no ${IG}.`,
+      ctaPill: 'Lançamento previsto: dezembro de 2026', ctaH: 'A Agulha espera por você.',
+      ctaP: 'Starpick Heroes chega em breve ao Android. Siga-nos no Instagram para saber a data de lançamento e as novidades, ou escreva para a gente.',
+      fContact: 'Contato', fPrivacy: 'Privacidade'
+    }
+  };
+  document.querySelector('a[href="privacy.html"]').search = 'lang=' + L;
+  if (L !== 'it') {
+    // French: non-breaking space before : ; ! ? » and after «
+    const t = k => { const v = T[L][k] ?? T.en[k]; return L === 'fr' && typeof v === 'string' ? v.replace(/ ([:;!?»])/g, ' $1').replace(/« /g, '« ') : v; };
+    document.title = t('title');
+    document.querySelectorAll('[data-t]').forEach(el => {
+      const v = t(el.dataset.t);
+      if (el.tagName === 'IMG') el.alt = v;
+      else if (el.tagName === 'META') el.content = v;
+      else if (el.hasAttribute('aria-label')) el.setAttribute('aria-label', v);
+      else el.innerHTML = v;
+    });
+    document.querySelectorAll('.phone img').forEach(i => i.src = i.getAttribute('src').replace('/it/', `/${L}/`));
+    let n = 0;
+    document.querySelector('.tagline').innerHTML = t('tag').map((s, k) =>
+      s.split(' ').map(w => `<span class="${k ? 'g' : 'm'}" style="--i:${n++}">${w}</span>`).join(' ')).join(' ');
+  }
+
   const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   // Twinkling sparkles on a canvas; `rise` makes them float up like heroes returning to the stars.

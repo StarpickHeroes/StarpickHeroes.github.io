@@ -5,18 +5,63 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Starpick Heroes — Informativa sulla privacy</title>
 <link rel="icon" href="img/icon.svg" type="image/svg+xml">
+<script>document.documentElement.classList.add('js')</script>
 <style>
-  :root { color-scheme: dark; }
-  body { margin: 0; background: #0E1330; color: #E8E6F5; font: 16px/1.55 system-ui, sans-serif; }
-  main { max-width: 720px; margin: 0 auto; padding: 32px 16px 64px; }
-  h1 { color: #F5C451; font-size: 26px; margin: 0 0 4px; }
-  em, small { color: #A9A6C8; }
+  @font-face { font-family: Cinzel; font-weight: 600; font-display: swap; src: url(fonts/cinzel-latin-600-normal.woff2) format("woff2"); }
+  @font-face { font-family: Nunito; font-weight: 400; font-display: swap; src: url(fonts/nunito-latin-400-normal.woff2) format("woff2"); }
+  @font-face { font-family: Nunito; font-weight: 700; font-display: swap; src: url(fonts/nunito-latin-700-normal.woff2) format("woff2"); }
+  :root { color-scheme: dark; --night: #0E1330; --gold: #F5C451; --cyan: #57D9E8; --text: #E8E6F5; --muted: #A9A6C8; }
+  body { margin: 0; background: var(--night); color: var(--text); font: 16px/1.6 Nunito, system-ui, sans-serif; }
+  :focus-visible { outline: 2px solid var(--cyan); outline-offset: 3px; border-radius: 6px; }
+  .bar { display: flex; align-items: center; justify-content: space-between; max-width: 720px; margin: 0 auto; padding: 16px 16px 0; }
+  .brand { display: inline-flex; align-items: center; gap: 10px; color: var(--text); text-decoration: none; font: 600 1rem Cinzel, serif; letter-spacing: .06em; }
+  .brand img { border-radius: 9px; }
+  .icon-btn { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; color: var(--text);
+              border: 1px solid rgb(245 196 81 / .3); background: rgb(42 47 107 / .45); }
+  .icon-btn:hover { color: var(--gold); }
+  main { max-width: 720px; margin: 0 auto; padding: 24px 16px 64px; }
+  h1 { color: var(--gold); font: 600 26px/1.25 Cinzel, Georgia, serif; margin: 0 0 4px; }
+  em, small { color: var(--muted); }
   b { color: #fff; }
-  a { color: #57D9E8; }
+  a { color: var(--cyan); }
+
+  /* language menu (same block in index.html): a <details>, lang.js closes it on an outside tap */
+  .lang { position: relative; display: none; }
+  .js .lang { display: block; }
+  .lang summary { list-style: none; cursor: pointer; font: 700 .8rem Nunito, sans-serif; letter-spacing: .08em; }
+  .lang summary::-webkit-details-marker { display: none; }
+  .lang[open] summary { color: var(--gold); border-color: var(--gold); }
+  .lang ul { position: absolute; right: 0; top: calc(100% + 10px); z-index: 10; min-width: 210px; margin: 0; padding: 6px; list-style: none;
+             border-radius: 18px; border: 1px solid rgb(245 196 81 / .3); background: rgb(14 19 48 / .92); backdrop-filter: blur(10px);
+             box-shadow: 0 24px 50px -18px #000; animation: drop .18s ease-out; }
+  .lang a { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; padding: .6em .9em; border-radius: 12px;
+            color: var(--text); text-decoration: none; font: 700 .95rem Nunito, sans-serif; }
+  .lang a small { color: var(--muted); font-size: .72rem; letter-spacing: .1em; }
+  .lang a:hover { background: rgb(42 47 107 / .8); color: var(--gold); }
+  .lang a[aria-current], .lang a[aria-current] small { color: var(--gold); }
+  .lang a[aria-current] small::before { content: "★ "; }
+  @keyframes drop { from { opacity: 0; transform: translateY(-6px); } }
+  @media (prefers-reduced-motion: reduce) { .lang ul { animation: none; } }
 </style>
 </head>
 <body>
-<main>
+<header class="bar">
+  <a class="brand" href="./"><img src="img/icon.svg" alt="" width="34" height="34">Starpick Heroes</a>
+  <details class="lang">
+    <summary class="icon-btn"><span>IT</span></summary>
+    <ul>
+      <li><a href="?lang=it" hreflang="it" lang="it">Italiano <small>IT</small></a></li>
+      <li><a href="?lang=en" hreflang="en" lang="en">English <small>EN</small></a></li>
+      <li><a href="?lang=es" hreflang="es" lang="es">Español <small>ES</small></a></li>
+      <li><a href="?lang=fr" hreflang="fr" lang="fr">Français <small>FR</small></a></li>
+      <li><a href="?lang=de" hreflang="de" lang="de">Deutsch <small>DE</small></a></li>
+      <li><a href="?lang=pt" hreflang="pt" lang="pt">Português (Brasil) <small>PT</small></a></li>
+    </ul>
+  </details>
+</header>
+
+<!-- Italiano: copia di site/privacy.html del gioco. Le altre lingue sono traduzioni di questo testo: se cambia, cambiano tutte. -->
+<main lang="it">
 <h1>Starpick Heroes — Informativa sulla privacy</h1>
 <p><em>Ultimo aggiornamento: 11 novembre 2026</em></p>
 <p>Starpick Heroes è un gioco per dispositivi mobili. Questa informativa spiega quali dati usa il gioco e perché.</p>
@@ -39,7 +84,144 @@ scrivendo all'indirizzo qui sotto. Puoi spegnere il salvataggio online dallo ste
 tramite Google Play, che gestisce il pagamento secondo la propria informativa; questa pagina sarà aggiornata prima.</p>
 <p><b>Minori.</b> Il gioco è pensato per un pubblico di 16 anni e più.</p>
 <p><b>Contatti.</b> Per domande o per chiedere la cancellazione dei dati: <a href="mailto:starpickheroes@gmail.com">starpickheroes@gmail.com</a>.</p>
-<p><a href="./">← Torna a Starpick Heroes</a></p>
+<p><a href="./?lang=it">← Torna a Starpick Heroes</a></p>
 </main>
+
+<main lang="en" hidden>
+<h1>Starpick Heroes — Privacy Policy</h1>
+<p><em>Last updated: 11 November 2026</em></p>
+<p>Starpick Heroes is a game for mobile devices. This policy explains what data the game uses and why.</p>
+<p><b>What data.</b> To save your game online and show the leaderboard, the game uses:</p>
+<ul>
+  <li>an <b>anonymous identifier</b> created on first launch (no name, email or phone number required);</li>
+  <li>your <b>game</b> (heroes, buildings, game settings) and the <b>names you choose</b> in the game (your Summoner name and the name of your Refuge);</li>
+  <li>the <b>leaderboard figures</b>: highest floor, strongest hero and weapon, Refuge level;</li>
+  <li>only if you tap “Link Google”: the <b>email address</b> and identifier of your Google account, to find your game again on another device.</li>
+</ul>
+<p><b>Why.</b> Only to make the game work: keeping your game safe, finding it again if you change phone, showing the leaderboard.
+No ads, no profiling, no selling or sharing of data.</p>
+<p><b>Who sees it.</b> Your Summoner name, the name of your Refuge and the leaderboard figures are <b>visible to other players</b>
+on the leaderboard. Your game and your email are not. The data is stored on Google Firebase (Google Cloud, servers in Europe), which processes it
+on behalf of the developer; transfers are always encrypted.</p>
+<p><b>How long, and how to delete it.</b> Until you delete it. In the game: Menu → Online save → “Delete online data”
+immediately deletes your online game, your place on the leaderboard and your account (the game on your phone stays). You can also ask for deletion
+by writing to the address below. You can turn off online saving from the same panel.</p>
+<p><b>Purchases.</b> The in-game Shop is currently in test mode and charges nothing. If real purchases are enabled in the future, they will go
+through Google Play, which handles payment under its own privacy policy; this page will be updated first.</p>
+<p><b>Minors.</b> The game is intended for an audience aged 16 and over.</p>
+<p><b>Contact.</b> For questions or to ask for your data to be deleted: <a href="mailto:starpickheroes@gmail.com">starpickheroes@gmail.com</a>.</p>
+<p><a href="./?lang=en">← Back to Starpick Heroes</a></p>
+</main>
+
+<main lang="es" hidden>
+<h1>Starpick Heroes — Política de privacidad</h1>
+<p><em>Última actualización: 11 de noviembre de 2026</em></p>
+<p>Starpick Heroes es un juego para dispositivos móviles. Esta política explica qué datos usa el juego y por qué.</p>
+<p><b>Qué datos.</b> Para guardar la partida en línea y mostrar la clasificación, el juego usa:</p>
+<ul>
+  <li>un <b>identificador anónimo</b> creado en el primer inicio (no se piden nombre, email ni número de teléfono);</li>
+  <li>la <b>partida</b> (héroes, edificios, ajustes del juego) y los <b>nombres que eliges</b> en el juego (tu nombre de Invocador y el nombre del Refugio);</li>
+  <li>los <b>números de la clasificación</b>: piso más alto, héroe y arma más fuertes, nivel del Refugio;</li>
+  <li>solo si tocas «Vincular Google»: la <b>dirección de email</b> y el identificador de tu cuenta de Google, para recuperar la partida en otro dispositivo.</li>
+</ul>
+<p><b>Por qué.</b> Solo para que el juego funcione: mantener la partida a salvo, recuperarla si cambias de teléfono, mostrar la clasificación.
+Sin publicidad, sin elaboración de perfiles, sin venta ni cesión de datos.</p>
+<p><b>Quién los ve.</b> Tu nombre de Invocador, el nombre del Refugio y los números de la clasificación son <b>visibles para los demás jugadores</b>
+en la clasificación. La partida y el email no. Los datos se guardan en Google Firebase (Google Cloud, servidores en Europa), que los trata
+por cuenta del desarrollador; la transferencia siempre va cifrada.</p>
+<p><b>Cuánto tiempo y cómo borrarlos.</b> Hasta que los borres. En el juego: Menú → Guardado en línea → «Borrar los datos en línea»
+elimina al instante la partida en línea, el puesto en la clasificación y la cuenta (la partida en el teléfono se queda). También puedes pedir el borrado
+escribiendo a la dirección de abajo. Puedes desactivar el guardado en línea desde el mismo panel.</p>
+<p><b>Compras.</b> La Tienda del juego está hoy en modo de prueba y no cobra nada. Si en el futuro se activan compras reales, se harán
+a través de Google Play, que gestiona el pago según su propia política de privacidad; esta página se actualizará antes.</p>
+<p><b>Menores.</b> El juego está pensado para un público de 16 años en adelante.</p>
+<p><b>Contacto.</b> Para preguntas o para pedir el borrado de los datos: <a href="mailto:starpickheroes@gmail.com">starpickheroes@gmail.com</a>.</p>
+<p><a href="./?lang=es">← Volver a Starpick Heroes</a></p>
+</main>
+
+<main lang="fr" hidden>
+<h1>Starpick Heroes — Politique de confidentialité</h1>
+<p><em>Dernière mise à jour&nbsp;: 11 novembre 2026</em></p>
+<p>Starpick Heroes est un jeu pour appareils mobiles. Cette politique explique quelles données le jeu utilise et pourquoi.</p>
+<p><b>Quelles données.</b> Pour sauvegarder la partie en ligne et afficher le classement, le jeu utilise&nbsp;:</p>
+<ul>
+  <li>un <b>identifiant anonyme</b> créé au premier lancement (aucun nom, e-mail ou numéro de téléphone demandé)&nbsp;;</li>
+  <li>la <b>partie</b> (héros, bâtiments, paramètres du jeu) et les <b>noms que vous choisissez</b> dans le jeu (votre nom d'Invocateur et le nom du Refuge)&nbsp;;</li>
+  <li>les <b>chiffres du classement</b>&nbsp;: étage le plus haut, héros et arme les plus forts, niveau du Refuge&nbsp;;</li>
+  <li>seulement si vous touchez «&nbsp;Lier Google&nbsp;»&nbsp;: l'<b>adresse e-mail</b> et l'identifiant de votre compte Google, pour retrouver la partie sur un autre appareil.</li>
+</ul>
+<p><b>Pourquoi.</b> Uniquement pour faire fonctionner le jeu&nbsp;: protéger la partie, la retrouver si vous changez de téléphone, afficher le classement.
+Pas de publicité, pas de profilage, aucune vente ni cession de données.</p>
+<p><b>Qui les voit.</b> Votre nom d'Invocateur, le nom du Refuge et les chiffres du classement sont <b>visibles par les autres joueurs</b>
+dans le classement. La partie et l'e-mail, non. Les données sont conservées sur Google Firebase (Google Cloud, serveurs en Europe), qui les traite
+pour le compte du développeur&nbsp;; le transfert est toujours chiffré.</p>
+<p><b>Combien de temps, et comment les effacer.</b> Jusqu'à ce que vous les effaciez. Dans le jeu&nbsp;: Menu → Sauvegarde en ligne → «&nbsp;Effacer les données en ligne&nbsp;»
+supprime immédiatement la partie en ligne, la place au classement et le compte (la partie sur le téléphone reste). Vous pouvez aussi demander l'effacement
+en écrivant à l'adresse ci-dessous. Vous pouvez désactiver la sauvegarde en ligne depuis le même panneau.</p>
+<p><b>Achats.</b> La Boutique du jeu est aujourd'hui en mode test et ne facture rien. Si de vrais achats sont activés à l'avenir, ils passeront
+par Google Play, qui gère le paiement selon sa propre politique de confidentialité&nbsp;; cette page sera mise à jour avant.</p>
+<p><b>Mineurs.</b> Le jeu s'adresse à un public de 16 ans et plus.</p>
+<p><b>Contact.</b> Pour toute question ou pour demander l'effacement des données&nbsp;: <a href="mailto:starpickheroes@gmail.com">starpickheroes@gmail.com</a>.</p>
+<p><a href="./?lang=fr">← Retour à Starpick Heroes</a></p>
+</main>
+
+<main lang="de" hidden>
+<h1>Starpick Heroes — Datenschutzerklärung</h1>
+<p><em>Zuletzt aktualisiert: 11. November 2026</em></p>
+<p>Starpick Heroes ist ein Spiel für Mobilgeräte. Diese Erklärung beschreibt, welche Daten das Spiel verwendet und warum.</p>
+<p><b>Welche Daten.</b> Um den Spielstand online zu speichern und die Rangliste anzuzeigen, verwendet das Spiel:</p>
+<ul>
+  <li>eine <b>anonyme Kennung</b>, die beim ersten Start erstellt wird (kein Name, keine E-Mail, keine Telefonnummer nötig);</li>
+  <li>den <b>Spielstand</b> (Helden, Gebäude, Spieleinstellungen) und die <b>Namen, die du im Spiel wählst</b> (deinen Beschwörernamen und den Namen der Zuflucht);</li>
+  <li>die <b>Ranglistenwerte</b>: höchste Etage, stärkster Held und stärkste Waffe, Stufe der Zuflucht;</li>
+  <li>nur wenn du auf „Google verknüpfen“ tippst: die <b>E-Mail-Adresse</b> und die Kennung deines Google-Kontos, um den Spielstand auf einem anderen Gerät wiederzufinden.</li>
+</ul>
+<p><b>Warum.</b> Nur damit das Spiel funktioniert: den Spielstand sichern, ihn bei einem Handywechsel wiederfinden, die Rangliste anzeigen.
+Keine Werbung, kein Profiling, kein Verkauf und keine Weitergabe von Daten.</p>
+<p><b>Wer sie sieht.</b> Dein Beschwörername, der Name der Zuflucht und die Ranglistenwerte sind in der Rangliste <b>für andere Spieler sichtbar</b>.
+Der Spielstand und die E-Mail nicht. Die Daten werden bei Google Firebase (Google Cloud, Server in Europa) gespeichert, das sie im Auftrag
+des Entwicklers verarbeitet; die Übertragung erfolgt immer verschlüsselt.</p>
+<p><b>Wie lange, und wie du sie löschst.</b> Bis du sie löschst. Im Spiel: Menü → Online-Speicherstand → „Online-Daten löschen“
+löscht sofort den Online-Spielstand, den Platz in der Rangliste und das Konto (der Spielstand auf dem Handy bleibt). Du kannst die Löschung auch
+per E-Mail an die Adresse unten verlangen. Im selben Fenster kannst du das Online-Speichern ausschalten.</p>
+<p><b>Käufe.</b> Der Laden im Spiel ist derzeit im Testmodus und berechnet nichts. Werden künftig echte Käufe freigeschaltet, laufen sie
+über Google Play, das die Zahlung nach seiner eigenen Datenschutzerklärung abwickelt; diese Seite wird vorher aktualisiert.</p>
+<p><b>Minderjährige.</b> Das Spiel richtet sich an Personen ab 16 Jahren.</p>
+<p><b>Kontakt.</b> Für Fragen oder um die Löschung der Daten zu verlangen: <a href="mailto:starpickheroes@gmail.com">starpickheroes@gmail.com</a>.</p>
+<p><a href="./?lang=de">← Zurück zu Starpick Heroes</a></p>
+</main>
+
+<main lang="pt" hidden>
+<h1>Starpick Heroes — Política de privacidade</h1>
+<p><em>Última atualização: 11 de novembro de 2026</em></p>
+<p>Starpick Heroes é um jogo para dispositivos móveis. Esta política explica quais dados o jogo usa e por quê.</p>
+<p><b>Quais dados.</b> Para salvar a partida online e mostrar o ranking, o jogo usa:</p>
+<ul>
+  <li>um <b>identificador anônimo</b> criado na primeira abertura (não pedimos nome, e-mail nem número de telefone);</li>
+  <li>a <b>partida</b> (heróis, edifícios, configurações do jogo) e os <b>nomes que você escolhe</b> no jogo (seu nome de Invocador e o nome do Refúgio);</li>
+  <li>os <b>números do ranking</b>: andar mais alto, herói e arma mais fortes, nível do Refúgio;</li>
+  <li>só se você tocar em “Conectar Google”: o <b>endereço de e-mail</b> e o identificador da sua conta Google, para recuperar a partida em outro dispositivo.</li>
+</ul>
+<p><b>Por quê.</b> Só para o jogo funcionar: manter a partida segura, recuperá-la se você trocar de celular, mostrar o ranking.
+Sem anúncios, sem criação de perfis, sem venda ou cessão de dados.</p>
+<p><b>Quem vê.</b> Seu nome de Invocador, o nome do Refúgio e os números do ranking ficam <b>visíveis para os outros jogadores</b>
+no ranking. A partida e o e-mail, não. Os dados ficam no Google Firebase (Google Cloud, servidores na Europa), que os trata
+em nome do desenvolvedor; a transferência é sempre criptografada.</p>
+<p><b>Por quanto tempo e como apagar.</b> Até você apagar. No jogo: Menu → Salvamento online → “Apagar os dados online”
+exclui na hora a partida online, o lugar no ranking e a conta (a partida no celular continua). Você também pode pedir a exclusão
+escrevendo para o endereço abaixo. Você pode desligar o salvamento online no mesmo painel.</p>
+<p><b>Compras.</b> A Loja do jogo está hoje em modo de teste e não cobra nada. Se no futuro compras reais forem ativadas, elas serão feitas
+pelo Google Play, que cuida do pagamento segundo a própria política de privacidade; esta página será atualizada antes.</p>
+<p><b>Menores.</b> O jogo é destinado a um público de 16 anos ou mais.</p>
+<p><b>Contato.</b> Para dúvidas ou para pedir a exclusão dos dados: <a href="mailto:starpickheroes@gmail.com">starpickheroes@gmail.com</a>.</p>
+<p><a href="./?lang=pt">← Voltar para Starpick Heroes</a></p>
+</main>
+
+<script src="lang.js"></script>
+<script>
+  // show the text in the language L (lang.js); without JS the Italian one stays
+  document.querySelectorAll('main').forEach(m => m.hidden = m.lang !== L);
+  document.title = document.querySelector(`main[lang="${L}"] h1`).textContent;
+</script>
 </body>
 </html>
